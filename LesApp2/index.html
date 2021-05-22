@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Самостоятельная деятельность учащегося</title>
+    <!-- Задание 3
+    Создайте страницу, на которой будут размещены теги логической разметки. Запустите этот и предыдущий примеры в разных
+    браузерах. Отличаются ли элементы в разных браузерах? -->
+</head>
+
+<body>
+    <h3>Теги физического формирования:</h3>
+
+    <hr>
+
+    &lt abbr &gt &nbsp <abbr title="указывает, что текст внутри элемента является аббревиатурой">ТВЭЯА</abbr> <br>
+    &lt strong &gt &nbsp <strong>задает тексту жирное начертание</strong> <br>
+    &lt em &gt &nbsp <em>задает тексту курсивное начертание</em> <br>
+    &lt del &gt &nbsp <del>используется для выделения текста, который был удален в новой версии
+        документа</del> <br>
+    &lt ins &gt &nbsp <ins>предназначен для выделения текста, который был добавлен в новую версию
+        документа</ins> <br>
+
+    <hr> <br>
+
+    &lt mark &gt &nbsp <mark>помечает текст как выделенный</mark> <br>
+    &lt q &gt &nbsp <q>выделяет текст в цитату</q> <br>
+    &lt var &gt &nbsp используется для выделения переменных компьютерных программ <br>
+    <var>
+        var pi = 3.1415926535897932384626433832795;
+    </var>
+
+    <br><br>
+    <hr>
+
+    &lt cite &gt &nbsp текст является сноской или цитатой <br>
+    <cite style="margin-left: 50px;">
+        <a href="https://github.com/BogdanPinchuk/Factorial">Factorial</a>
+    </cite> <br> <br>
+
+    &lt code &gt &nbsp предназначен для хранения текста, который представляет собой
+    программный код &nbsp C#/.NET
+    <code>
+        <pre>
+        /// &ltsummary&gt
+        /// Stirling's approximation exponent formula
+        /// &ltsummary&gt
+        /// &ltparam name="array"&gt array value &lt/param &gt
+        /// &ltreturns&gtarray Factorial number&lt/returns&gt
+        public static unsafe double[] FactorialExp(uint[] array)
+        {
+            // accurate
+            if (array.Max() > 11)
+                throw new Exception(errorE);
+    
+            // Square root of 2 * pi
+            double sr2pi = Math.Sqrt(2 * Math.PI);
+    
+            // some part of formula
+            double[] f_st = new double[array.Length],
+                s_nd = new double[array.Length],
+                t_rd = new double[array.Length],
+                res = new double[array.Length];
+    
+            fixed (double* f = f_st, s = s_nd, t = t_rd, r = res)
+            fixed (uint* a = array)
+            {
+                double* _f = f, _s = s, _t = t, _r = r;
+                uint* _a = a;
+    
+                for (int i = 0; i < array.Length; i++, _f++, _s++, _t++, _a++, _r++)
+                {
+                    // fast answer
+                    if (*_a <= 1)
+                    {
+                        *_r = 1;
+                        continue;
+                    }
+                    else if (*_a == 2)
+                    {
+                        *_r = 2;
+                        continue;
+                    }
+    
+                    *_f = sr2pi * Math.Sqrt(*_a);
+                    *_s = Math.Pow(*_a / Math.E, *_a);
+                    *_t = Math.Pow(1 + 1 / (2.0 * *_a) + 1 / (8.0 * *_a * *_a), 1 / 6.0);
+                    *_t = Math.Exp(1 / (12.0 * *_a) - 1 / (360.0 * *_a * *_a * *_a));
+                    *_r = *_f * *_s * *_t;
+                    *_r = Math.Round(*_r, MidpointRounding.AwayFromZero);
+                }
+            }
+    
+            return res;
+        }
+        </pre>
+    </code>
+
+</body>
+
+</html>
